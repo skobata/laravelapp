@@ -1,0 +1,19 @@
+17p
+プロジェクト作成について選択肢の説明なし(おそらくバージョン違いのせい)
+⇒ 最終的に選んだ環境と理由については「create_laravel_project.txt」参照
+
+20p
+Xamppでの起動についてTomcatの起動が失敗する。
+これまでに作成していたdockerコンテナがXamppで利用したいポートを使ってしまっていた。
+⇒ docker不要だったので落として再起動で解決
+
+33p
+作成したはずのhelloページが表示できない。(厳密には/以外が500エラーになる)
+Apache logを参照すると
+(AH00124: Request exceeded the limit of 10 internal redirects due to probable configuration error. Use 'LimitInternalRecursion' to increase the limit if necessary. Use 'LogLevel debug' to get a backtrace.)
+とエラーが出ており、リダイレクトループが発生してしまっているよう。httpd.confをいろいろといじったが解決せず。2.2から2.4へバージョンが変わったことにより、記述方法が少し変わったことを知るも今回の事象とは関係ないことが判明
+⇒ public/.htaccessに「RewriteBase /」と記述し解決 参考サイト: https://tips.recatnap.info/laboratory/detail/id/576
+
+43p
+指定された通りのルーティング方法でコントローラを呼び出せるのはlaravel 7までで8以降のバージョンを利用する場合は違う書き方をしなければならない。
+⇒ 参考：https://www.tairaengineer-note.com/laravel-error-target-class-does-not-exist/　を参考にルーティングの書き方を修正

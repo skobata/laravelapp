@@ -1,0 +1,54 @@
+■ララベルプロジェクト作成
+
+C:\Users\pfsko\workspace>laravel new laravelapp
+PHP Warning:  PHP Startup: zip: Unable to initialize module
+Module compiled with module API=20220829
+PHP    compiled with module API=20210902
+These options need to match
+ in Unknown on line 0
+
+   _                               _
+  | |                             | |
+  | |     __ _ _ __ __ ___   _____| |
+  | |    / _` | '__/ _` \ \ / / _ \ |
+  | |___| (_| | | | (_| |\ V /  __/ |
+  |______\__,_|_|  \__,_| \_/ \___|_|
+
+
+ Would you like to install a starter kit?:
+  [none     ] No starter kit
+  [breeze   ] Laravel Breeze
+  [jetstream] Laravel Jetstream
+ > breeze　　　　　　　　　　　　　　　　　　　// 青本では特に指定等なく、laravel uiを利用する予定のようであるが、現在非推奨であるらしく選択肢もない。
+　　　　　　　　　　　　　　　　　　　　　　　//  使いやすく開発者のおすすめである(らしい)breezeを選んでおく。 jet streemは機能が多いが難しいらしい
+
+ Which Breeze stack would you like to install?:
+  [blade   ] Blade
+  [livewire] Livewire with Alpine
+  [react   ] React with Inertia
+  [vue     ] Vue with Inertia
+  [api     ] API only
+ > blade　　　　　　　　　　　　　　　　　　　// ここは青本でこの後使うといわれていたのでbladeを選択
+
+
+ Would you like dark mode support? (yes/no) [no]:
+ >
+
+
+ Which testing framework do you prefer?:
+  [0] PHPUnit
+  [1] Pest
+ > 0　　　　　　　　　　　　　　　　　　　　// テストは馴染みのあったphpunitを選択
+
+
+ Would you like to initialize a Git repository? (yes/no) [no]:
+ > yes　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　// Git管理したいのでyes
+
+    PHP Warning:  PHP Startup: zip: Unable to initialize module
+    
+以降プロジェクトが作成されていく・・・・・・・・・
+
+databaseはMySQLを選択
+
+
+以上
