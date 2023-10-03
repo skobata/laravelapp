@@ -3,46 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-global $head, $style, $body, $end;
-$head = '<html><head>';
-$style = <<<EOF
-    <style>
-        body {font-size: 16pt; color: #999;}
-        h1 {font-size: 100pt; text-align: right; color: #eee; margin: -40px 0 -50px 0;}
-    </style>
-EOF;
-$body = '</head><body>';
-$end = '</body></html>';
-
-function tag($tag, $txt) {
-    return "<{$tag}>{$txt}</{$tag}>";
-}
+use App\Http\Requests\HelloRequest;
+use Illuminate\Support\Facades\Validator;
 
 class HelloController extends Controller
 {
-    //
-    public function index() {
-        global $head, $style, $body, $end;
-        return $head
-            . tag('title', 'Hello/index')
-            . $style
-            . $body
-            . tag('h1', 'index')
-            . tag('p', 'this is Index page.')
-            . '<a href="/hello/other">go to Other page</a>'
-            . $end;
+    public function index(Request $request)
+    {
+        $validator = Validator::make($request->query(), [
+            'id' => 'required',
+            'pass' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $msg = 'クエリ―に問題があります。';
+        } else {
+            $msg = 'ID/PASSを受け付けました。フォームを入力ください。';
+        }
+        return view('hello.index', ['msg' => $msg]);
     }
 
-    public function other() {
-        global $head, $style, $body, $end;
-        return $head
-            . tag('title', 'Hello/Other')
-            . $style
-            . $body
-            . tag('h1', 'Other')
-            . tag('p', 'this is Other page')
-            . '<a href="/hello">go to Index page</a>'
-            . $end;
+    public function post(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'mail' => 'email',
+            'age' => 'numeric',
+        ];
+        $messages = [
+            'name.required' => '名前は入力必須です。',
+            'mail.email' => 'メールアドレスが必要です。',
+            'age.numeric' => '年齢を整数で記入してください。',
+            'age.min' => '年齢は0歳以上で入力してください。',
+            'age.max' => '年齢は200歳以下で入力してください。',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        $validator->sometimes('age', 'min:0', function ($input) {
+            return is_numeric($input->age);
+        });
+        $validator->sometimes('age', 'max:200', function ($input) {
+            return is_numeric($input->age);
+        });
+        if ($validator->fails()) {
+            return redirect('/hello')->withErrors($validator)->withInput();
+        }
+        return view('hello.index', ['msg' => '正しく入力されました。']);
     }
 }

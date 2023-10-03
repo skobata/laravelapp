@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HelloController;
+
+use App\Http\Middleware\HelloMiddleware;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 Route::get('hello', [HelloController::class, 'index']);
-Route::get('hello/other', [HelloController::class, 'other']);
+Route::post('hello', [HelloController::class, 'post']);
 
 require __DIR__.'/auth.php';
