@@ -17,3 +17,11 @@ Apache logを参照すると
 43p
 指定された通りのルーティング方法でコントローラを呼び出せるのはlaravel 7までで8以降のバージョンを利用する場合は違う書き方をしなければならない。
 ⇒ 参考：https://www.tairaengineer-note.com/laravel-error-target-class-does-not-exist/　を参考にルーティングの書き方を修正
+
+50p
+43pと同様でルーティングのやり方が違いシングルアクションが正常に稼働せずエラーになる。
+⇒ laravel 8以降の書き方に変えて解決 参考：https://readouble.com/laravel/10.x/ja/controllers.html
+
+144p
+「use Validator」の記述ではクラスが認識できない。
+⇒ 「use Illuminate\Support\Facades\Validator」と記載する。参考：https://tech.amefure.com/php-laravel-validation-facade
