@@ -7,47 +7,73 @@ use Illuminate\Http\Response;
 
 use App\Http\Requests\HelloRequest;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class HelloController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $validator = Validator::make($request->query(), [
-            'id' => 'required',
-            'pass' => 'required'
-        ]);
-        if ($validator->fails()) {
-            $msg = 'クエリ―に問題があります。';
-        } else {
-            $msg = 'ID/PASSを受け付けました。フォームを入力ください。';
-        }
-        return view('hello.index', ['msg' => $msg]);
+        $items = DB::table('people')->orderBy('age', 'asc')->get();
+        return view('hello.index', ['items' => $items]);
     }
 
-    public function post(Request $request)
+    public function post()
     {
-        $rules = [
-            'name' => 'required',
-            'mail' => 'email',
-            'age' => 'numeric',
+        $items = DB::table('people')->get();
+        return view('hello.index', ['items' => $items]);
+    }
+
+    public function show(Request $request)
+    {
+        $items = DB::table('people')
+            ->offset($request->page * 3)
+            ->limit(3)
+            ->get();
+        return view('hello.show', ['items' => $items]);
+    }
+
+    public function add(Request $request)
+    {
+        return view('hello.add');
+    }
+
+    public function create(Request $request)
+    {
+        $params = [
+            'name' => $request->name,
+            'mail' => $request->mail,
+            'age' => $request->age,
         ];
-        $messages = [
-            'name.required' => '名前は入力必須です。',
-            'mail.email' => 'メールアドレスが必要です。',
-            'age.numeric' => '年齢を整数で記入してください。',
-            'age.min' => '年齢は0歳以上で入力してください。',
-            'age.max' => '年齢は200歳以下で入力してください。',
+        DB::table('people')->insert($params);
+        return redirect('/hello');
+    }
+
+    public function edit(Request $request)
+    {
+        $item = DB::table('people')->where('id', $request->id)->first();
+        return view('hello.edit', ['form' => $item]);
+    }
+
+    public function update(Request $request)
+    {
+        $params = [
+            'name' => $request->name,
+            'mail' => $request->mail,
+            'age' => $request->age,
         ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        $validator->sometimes('age', 'min:0', function ($input) {
-            return is_numeric($input->age);
-        });
-        $validator->sometimes('age', 'max:200', function ($input) {
-            return is_numeric($input->age);
-        });
-        if ($validator->fails()) {
-            return redirect('/hello')->withErrors($validator)->withInput();
-        }
-        return view('hello.index', ['msg' => '正しく入力されました。']);
+        DB::table('people')->where('id', $request->id)->update($params);
+        return redirect('/hello');
+    }
+
+    public function del(Request $request)
+    {
+        $item = DB::table('people')->where('id', $request->id)->first();
+        return view('hello.del', ['form' => $item]);
+    }
+
+    public function remove(Request $request)
+    {
+        DB::table('people')->where('id', $request->id)->delete();
+        return redirect('/hello');
     }
 }
