@@ -25,3 +25,19 @@ Apache logを参照すると
 144p
 「use Validator」の記述ではクラスが認識できない。
 ⇒ 「use Illuminate\Support\Facades\Validator」と記載する。参考：https://tech.amefure.com/php-laravel-validation-facade
+
+158-160pの最初まで
+コマンドで生成したMyruleの内容が全く違う。
+⇒ Laravel 10の書き方に合わせ内容を変更し解決。参考：https://readouble.com/laravel/10.x/ja/validation.html
+具体的な内容については同ディレクトリMyRule.phpを参照(ルールの利用箇所については本通りでOK)
+
+183p
+SQLiteのコマンドラインツールが認識できない。
+⇒ 本書に書いてある物とは別に「A bundle of command-line tools for managing SQLite database files,・・・・」と書いてある物をダウンロードして配置する必要がある。
+(Windowsのみ)
+
+228p
+既存DB退避後のマイグレーション実施が失敗する。(SQliteに接続できない様)
+⇒ php.iniの記述内容にあるpdo_sqliteを有効化して解決。参考：https://hitoriit.blog/archives/214
+
+
