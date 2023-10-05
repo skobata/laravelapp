@@ -40,4 +40,6 @@ SQLiteのコマンドラインツールが認識できない。
 既存DB退避後のマイグレーション実施が失敗する。(SQliteに接続できない様)
 ⇒ php.iniの記述内容にあるpdo_sqliteを有効化して解決。参考：https://hitoriit.blog/archives/214
 
-
+254p
+スコープクラス作成にコマンドを使うべきである。
+⇒ 参考：https://laravel-news.com/laravel-scopes-generator
