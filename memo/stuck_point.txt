@@ -43,3 +43,9 @@ SQLiteのコマンドラインツールが認識できない。
 254p
 スコープクラス作成にコマンドを使うべきである。
 ⇒ 参考：https://laravel-news.com/laravel-scopes-generator
+
+278p
+hasOneメソッドで関連付けする方法が違う。
+⇒ 公式サイトを参考にクラス指定方法を変更。参考：https://readouble.com/laravel/8.x/ja/eloquent-relationships.html#one-to-one
+
+

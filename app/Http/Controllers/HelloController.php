@@ -76,4 +76,9 @@ class HelloController extends Controller
         DB::table('people')->where('id', $request->id)->delete();
         return redirect('/hello');
     }
+
+    public function rest(Request $request)
+    {
+        return view('hello.rest');
+    }
 }
