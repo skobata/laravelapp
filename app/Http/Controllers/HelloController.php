@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -11,10 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class HelloController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = DB::table('people')->orderBy('age', 'asc')->get();
-        return view('hello.index', ['items' => $items]);
+        $sort = $request->sort;
+        $items = Person::orderBy($sort, 'asc')->paginate(3);
+        return view('hello.index', ['items' => $items, 'sort' => $sort]);
     }
 
     public function post()
@@ -80,5 +82,18 @@ class HelloController extends Controller
     public function rest(Request $request)
     {
         return view('hello.rest');
+    }
+
+    public function ses_get(Request $request)
+    {
+        $sesdata = $request->session()->get('msg');
+        return view('hello.session', ['session_data' => $sesdata]);
+    }
+
+    public function ses_put(Request $request)
+    {
+        $msg = $request->input;
+        $request->session()->put('msg', $msg);
+        return redirect('hello/session');
     }
 }
