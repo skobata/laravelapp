@@ -48,4 +48,7 @@ SQLiteのコマンドラインツールが認識できない。
 hasOneメソッドで関連付けする方法が違う。
 ⇒ 公式サイトを参考にクラス指定方法を変更。参考：https://readouble.com/laravel/8.x/ja/eloquent-relationships.html#one-to-one
 
-
+320p
+ページネーションメソッドを呼び変えただけでは表示自体には変化がない。
+⇒321pのartisanコマンドでViewを生成したのち、bootstrap-4を読み込ませることで表示を参考書の様な形に返られる。
+参考：https://readouble.com/laravel/10.x/ja/pagination.html
